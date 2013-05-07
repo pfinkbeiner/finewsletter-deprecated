@@ -17,14 +17,16 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:render partial="FormErrors" />
 
 <div class="finewsletter finewsletter-verify">
-	<f:if condition="{verified} == TRUE">
+	<f:if condition="{verified}">
 		<f:then>
 		<form action="">
 			<input type="email" readonly="true" value="{verifiedEmail}" />
 			<button>√</button>
 		</form>
 		</f:then>
-		<f:else></f:else>
+		<f:else>
+			Oops! Da lief wohl etwas schief. Melden Sie sich bitte erneut an. 
+		</f:else>
 	</f:if>
 </div>
 </f:section>

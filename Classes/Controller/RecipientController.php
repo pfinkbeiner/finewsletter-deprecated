@@ -121,16 +121,6 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	}
 
 	/**
-	 * action edit
-	 *
-	 * @param $recipient
-	 * @return void
-	 */
-	public function editAction(Tx_Finewsletter_Domain_Model_Recipient $recipient) {
-		$this->view->assign('recipient', $recipient);
-	}
-
-	/**
 	 * action update
 	 *
 	 * @param $recipient
@@ -144,6 +134,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 
 	/**
 	 * action subscribed
+	 *
 	 *
 	 * @return void
 	 */

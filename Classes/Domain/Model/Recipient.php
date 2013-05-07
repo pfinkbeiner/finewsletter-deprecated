@@ -49,6 +49,13 @@ class Tx_Finewsletter_Domain_Model_Recipient extends Tx_Extbase_DomainObject_Abs
 	protected $active = FALSE;
 
 	/**
+	 * token
+	 *
+	 * @var string
+	 */
+	protected $token;
+
+	/**
 	 * Returns the email
 	 *
 	 * @return string $email
@@ -93,6 +100,25 @@ class Tx_Finewsletter_Domain_Model_Recipient extends Tx_Extbase_DomainObject_Abs
 	 */
 	public function isActive() {
 		return $this->getActive();
+	}
+
+	/**
+	 * Returns the token
+	 *
+	 * @return string $token
+	 */
+	public function getToken() {
+		return $this->token;
+	}
+
+	/**
+	 * Sets the token
+	 *
+	 * @param string $token
+	 * @return void
+	 */
+	public function setToken($token) {
+		$this->token = $token;
 	}
 
 }

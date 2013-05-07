@@ -7,7 +7,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Registration',
 	array(
-		'Recipient' => 'new, create, edit, update',
+		'Recipient' => 'new, create, edit, update, subscribed',
 		
 	),
 	// non-cacheable actions

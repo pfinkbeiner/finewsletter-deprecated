@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_finewsletter_domain_model_recipient'] = array(
 	'ctrl' => $TCA['tx_finewsletter_domain_model_recipient']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, email, active',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, email, active, token',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, email, active,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, email, active, token,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -107,6 +107,14 @@ $TCA['tx_finewsletter_domain_model_recipient'] = array(
 			'label' => 'LLL:EXT:finewsletter/Resources/Private/Language/locallang_db.xml:tx_finewsletter_domain_model_recipient.active',
 			'config' => array(
 				'type' => 'check',
+				'default' => 0
+			),
+		),
+		'token' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:finewsletter/Resources/Private/Language/locallang_db.xml:tx_finewsletter_domain_model_recipient.token',
+			'config' => array(
+				'type' => 'input',
 				'default' => 0
 			),
 		),

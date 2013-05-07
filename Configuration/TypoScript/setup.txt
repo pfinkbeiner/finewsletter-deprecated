@@ -7,6 +7,17 @@ plugin.tx_finewsletter {
 	persistence {
 		storagePid = {$plugin.tx_finewsletter.persistence.storagePid}
 	}
+    settings {
+        mail {
+            test = true
+            registration {
+                templates {
+                    html = EXT:finewsletter/Resources/Private/Templates/Email/Registration.html
+                    txt = EXT:finewsletter/Resources/Private/Templates/Email/Registration.txt
+                }
+            }
+        }
+    }
 }
 
 plugin.tx_finewsletter._CSS_DEFAULT_STYLE (

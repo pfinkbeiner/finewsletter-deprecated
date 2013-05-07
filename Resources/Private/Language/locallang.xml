@@ -9,6 +9,7 @@
 			<label index="tx_finewsletter_domain_model_recipient">Recipient</label>
 			<label index="tx_finewsletter_domain_model_recipient.email">email</label>
 			<label index="tx_finewsletter_domain_model_recipient.active">active</label>
+			<label index="tx_finewsletter_domain_model_recipient.subscribe">subscribe</label>
 		</languageKey>
 	</data>
 </T3locallang>

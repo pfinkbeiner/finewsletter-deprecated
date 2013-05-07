@@ -71,9 +71,50 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 * @return void
 	 */
 	public function createAction(Tx_Finewsletter_Domain_Model_Recipient $newRecipient) {
-		$this->recipientRepository->add($newRecipient);
-		$this->flashMessageContainer->add('Your new Recipient was created.');
-		$this->redirect('list');
+		$userValidator = $this->objectManager->get('Tx_Finewsletter_Validator_RecipientValidator');
+		$this->flashMessageContainer->flush();
+
+		$email = $newRecipient->getEmail();
+
+		if($userValidator->isEmailValid($email) === FALSE) {
+			$this->flashMessageContainer->add('Keine gültige E-Mail Addresse.');
+			$this->redirect('new');
+		} elseif($userValidator->doesEmailExist($email) === TRUE) {
+			// Check if user is already subscribed (active)
+			if ($userValidator->isUserInactive === TRUE) {
+				$this->flashMessageContainer->add('E-Mail Addresse bereits vorhanden. Erneute verifizierungsemail wurde verschickt.');
+				$this->redirect('new');
+			} else {
+				$this->flashMessageContainer->add('E-Mail Addresse bereits vorhanden.');
+				$this->redirect('new');
+			}
+		} else {
+			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
+			//$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
+
+			$newRecipient->setActive(FALSE);
+			$newRecipient->setToken($securityService->generateToken());
+			$this->recipientRepository->add($newRecipient);
+
+
+//			$emailContent = $mailService->generateEmailContent(array(
+//				'html'  => $this->settings['mail']['registration']['templates']['html'],
+//				'plain' => $this->settings['mail']['registration']['templates']['plain']
+//			), array(
+//				'verifyLink' => $securityService->generateVerifyLink($email, $this->uriBuilder) 
+//			), TRUE, TRUE);
+//
+//			$mailService->sendMail(
+//				$this->objectManager->get('t3lib_mail_Message'),
+//				$userWhoLostHisPassword->getEmail(),
+//				$this->settings['mail']['userPasswordRecovery']['subject'],
+//				$emailContent['html'],
+//				$emailContent['plain'],
+//				$this->settings['mail']
+//			);
+//
+			$this->redirect('subscribed');
+		}
 	}
 
 	/**
@@ -96,6 +137,14 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 		$this->recipientRepository->update($recipient);
 		$this->flashMessageContainer->add('Your Recipient was updated.');
 		$this->redirect('list');
+	}
+
+	/**
+	 * action subscribed
+	 *
+	 * @return void
+	 */
+	public function subscribedAction() {
 	}
 
 }

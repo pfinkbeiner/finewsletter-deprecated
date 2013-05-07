@@ -150,5 +150,24 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	public function subscribedAction() {
 	}
 
+	/**
+	 * action verify
+	 *
+	 * @param Tx_Finewsletter_Domain_Model_Recipient $recipient
+	 * @param string hash
+	 * @return void
+	 */
+	public function verifyAction($recipient, $hash) {
+		$verified = FALSE;
+		$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
+		if($securityService->isSecurityHashValid($recipient, $hash) === TRUE) {
+			$recipient->setActive(TRUE);
+			$this->recipientRepository->update($recipient);
+			$verified = TRUE;
+		}
+		$this->view->assign('verified', $verified);
+		$this->view->assign('verifiedEmail', $recipient->getEmail());
+	}
+
 }
 ?>

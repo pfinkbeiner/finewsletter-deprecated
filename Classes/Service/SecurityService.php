@@ -60,6 +60,26 @@ class Tx_Finewsletter_Service_SecurityService implements t3lib_Singleton {
 	}
 
 	/**
+	 * Validates security hash from email
+	 *
+	 * @param Tx_Finewsletter_Domain_Model_Recipient $recipient
+	 * @param string $hash
+	 * @return boolean
+	 */
+	public function isSecurityHashValid($recipient, $hash) {
+		$status = FALSE;
+		$md5Email = md5($recipient->getEmail());
+		$md5Token = md5($recipient->getToken());
+
+		$originHash = substr($md5Email . $md5Token, 16, 32);
+		if($originHash === $hash) {
+			// valid
+			$status = TRUE;
+		} 
+		return $status;
+	}
+
+	/**
 	 * Generate verify Link
 	 *
 	 * @param Tx_Finewsletter_Domain_Model_Recipient $newRecipient
@@ -72,9 +92,8 @@ class Tx_Finewsletter_Service_SecurityService implements t3lib_Singleton {
 			->reset()
 			->setCreateAbsoluteUri(TRUE)
 			->setUseCacheHash(FALSE)
-			->uriFor('activate', array( 'recipient' => $newRecipient, 'hash' => $this->generateSecurityHash($newRecipient)));
+			->uriFor('verify', array( 'recipient' => $newRecipient, 'hash' => $this->generateSecurityHash($newRecipient)));
 		return $uri;
 	}
-	
 }
 ?>

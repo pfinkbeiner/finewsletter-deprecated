@@ -1,0 +1,14 @@
+plugin.tx_finewsletter {
+	view {
+		# cat=plugin.tx_finewsletter/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:finewsletter/Resources/Private/Templates/
+		# cat=plugin.tx_finewsletter/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:finewsletter/Resources/Private/Partials/
+		# cat=plugin.tx_finewsletter/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:finewsletter/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_finewsletter//a; type=int+; label=Default storage PID
+		storagePid = 
+	}
+}

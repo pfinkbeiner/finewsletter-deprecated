@@ -1,0 +1,30 @@
+plugin.tx_finewsletter {
+	view {
+		templateRootPath = {$plugin.tx_finewsletter.view.templateRootPath}
+		partialRootPath = {$plugin.tx_finewsletter.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_finewsletter.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_finewsletter.persistence.storagePid}
+	}
+}
+
+plugin.tx_finewsletter._CSS_DEFAULT_STYLE (
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-finewsletter table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-finewsletter table th {
+		font-weight:bold;
+	}
+
+	.tx-finewsletter table td {
+		vertical-align:top;
+	}
+)

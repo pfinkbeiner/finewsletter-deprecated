@@ -1,4 +1,5 @@
+{namespace fi=Tx_Finewsletter_ViewHelpers}
 Vielen Dank!
 
 Bitte hier klicken:
-{verifyLink}
+<fi:htmlEntityDecode entities="{verifyLink}" />

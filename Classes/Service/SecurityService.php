@@ -43,5 +43,38 @@ class Tx_Finewsletter_Service_SecurityService implements t3lib_Singleton {
 			mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
 			mt_rand( 0, 0x3fff ) | 0x8000 );
 	}
+
+	/**
+	 * Generates a security hash for verify link
+	 *
+	 * @param Tx_Finewsletter_Domain_Model_Recipient $recipient
+	 * @return string
+	 */
+	public function generateSecurityHash($recipient) {
+		$md5Email = md5($recipient->getEmail());
+		$md5Token = md5($recipient->getToken());
+
+		$hash = $md5Email . $md5Token;
+		// Short URL
+		return substr($hash, 16, 32);
+	}
+
+	/**
+	 * Generate verify Link
+	 *
+	 * @param Tx_Finewsletter_Domain_Model_Recipient $newRecipient
+	 * @param Tx_Extbase_MVC_Web_Routing_UriBuilder $uriBuilder
+	 * @return string
+	 */
+	public function generateVerifyLink(Tx_Finewsletter_Domain_Model_Recipient $newRecipient, Tx_Extbase_MVC_Web_Routing_UriBuilder $uriBuilder = NULL) {
+		$uriBuilder = ($uriBuilder === NULL) ? $this->uriBuilder : $uriBuilder;
+		$uri = $uriBuilder
+			->reset()
+			->setCreateAbsoluteUri(TRUE)
+			->setUseCacheHash(FALSE)
+			->uriFor('activate', array( 'recipient' => $newRecipient, 'hash' => $this->generateSecurityHash($newRecipient)));
+		return $uri;
+	}
+	
 }
 ?>

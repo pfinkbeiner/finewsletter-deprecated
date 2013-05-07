@@ -90,29 +90,32 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			}
 		} else {
 			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
-			//$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
+			$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
 
 			$newRecipient->setActive(FALSE);
+
 			$newRecipient->setToken($securityService->generateToken());
 			$this->recipientRepository->add($newRecipient);
 
+			$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
+			$persistenceManager->persistAll();
 
-//			$emailContent = $mailService->generateEmailContent(array(
-//				'html'  => $this->settings['mail']['registration']['templates']['html'],
-//				'plain' => $this->settings['mail']['registration']['templates']['plain']
-//			), array(
-//				'verifyLink' => $securityService->generateVerifyLink($email, $this->uriBuilder) 
-//			), TRUE, TRUE);
-//
-//			$mailService->sendMail(
-//				$this->objectManager->get('t3lib_mail_Message'),
-//				$userWhoLostHisPassword->getEmail(),
-//				$this->settings['mail']['userPasswordRecovery']['subject'],
-//				$emailContent['html'],
-//				$emailContent['plain'],
-//				$this->settings['mail']
-//			);
-//
+			$emailContent = $mailService->generateEmailContent(array(
+				'html'  => $this->settings['mail']['registration']['templates']['html'],
+				'plain' => $this->settings['mail']['registration']['templates']['plain']
+			), array(
+				'verifyLink' => $securityService->generateVerifyLink($newRecipient, $this->uriBuilder) 
+			), TRUE, TRUE);
+
+			$mailService->sendMail(
+				$this->objectManager->get('t3lib_mail_Message'),
+				$email,
+				$this->settings['mail']['registration']['subject'],
+				$emailContent['html'],
+				$emailContent['plain'],
+				$this->settings['mail']
+			);
+
 			$this->redirect('subscribed');
 		}
 	}

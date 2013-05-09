@@ -72,6 +72,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 */
 	public function createAction(Tx_Finewsletter_Domain_Model_Recipient $newRecipient) {
 		$userValidator = $this->objectManager->get('Tx_Finewsletter_Validator_RecipientValidator');
+		// Prevent flashMessage flood
 		$this->flashMessageContainer->flush();
 
 		$email = $newRecipient->getEmail();

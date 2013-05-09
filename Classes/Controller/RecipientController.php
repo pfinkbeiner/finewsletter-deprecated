@@ -57,7 +57,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 * @dontvalidate $newRecipient
 	 * @return void
 	 */
-	public function newAction(Tx_Finewsletter_Domain_Model_Recipient $newRecipient = NULL) {
+	public function subscribeAction(Tx_Finewsletter_Domain_Model_Recipient $newRecipient = NULL) {
 		if ($newRecipient == NULL) { // workaround for fluid bug ##5636
 			$newRecipient = t3lib_div::makeInstance('Tx_Finewsletter_Domain_Model_Recipient');
 		}
@@ -79,15 +79,15 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 
 		if($userValidator->isEmailValid($email) === FALSE) {
 			$this->flashMessageContainer->add('Keine gültige E-Mail Addresse.');
-			$this->redirect('new');
+			$this->redirect('subscribe');
 		} elseif($userValidator->doesEmailExist($email) === TRUE) {
 			// Check if user is already subscribed (active)
 			if ($userValidator->isUserInactive === TRUE) {
 				$this->flashMessageContainer->add('E-Mail Addresse bereits vorhanden. Erneute verifizierungsemail wurde verschickt.');
-				$this->redirect('new');
+				$this->redirect('subscribe');
 			} else {
 				$this->flashMessageContainer->add('E-Mail Addresse bereits vorhanden.');
-				$this->redirect('new');
+				$this->redirect('subscribe');
 			}
 		} else {
 			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
@@ -102,8 +102,8 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			$persistenceManager->persistAll();
 
 			$emailContent = $mailService->generateEmailContent(array(
-				'html'  => $this->settings['mail']['registration']['templates']['html'],
-				'plain' => $this->settings['mail']['registration']['templates']['plain']
+				'html'  => $this->settings['mail']['subscription']['templates']['html'],
+				'plain' => $this->settings['mail']['subscription']['templates']['plain']
 			), array(
 				'verifyLink' => $securityService->generateVerifyLink($newRecipient, $this->uriBuilder) 
 			), TRUE, TRUE);
@@ -111,7 +111,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			$mailService->sendMail(
 				$this->objectManager->get('t3lib_mail_Message'),
 				$email,
-				$this->settings['mail']['registration']['subject'],
+				$this->settings['mail']['subscription']['subject'],
 				$emailContent['html'],
 				$emailContent['plain'],
 				$this->settings['mail']
@@ -122,20 +122,8 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	}
 
 	/**
-	 * action update
-	 *
-	 * @param $recipient
-	 * @return void
-	 */
-	public function updateAction(Tx_Finewsletter_Domain_Model_Recipient $recipient) {
-		$this->recipientRepository->update($recipient);
-		$this->flashMessageContainer->add('Your Recipient was updated.');
-		$this->redirect('list');
-	}
-
-	/**
 	 * action subscribed
-	 *
+	 * Used for addtional view.
 	 *
 	 * @return void
 	 */
@@ -161,5 +149,60 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 		$this->view->assign('verifiedEmail', $recipient->getEmail());
 	}
 
+	/**
+	 * unsubscripe action
+	 *
+	 * There should be two ways for unsubscribe. 
+	 * Immediately by link in newsletter.
+	 * With double opt-out via website.
+	 *
+	 * This carries about double opt-out via website.
+	 *
+	 * @param $newRecipient
+	 * @dontvalidate $newRecipient
+	 * @return void
+	 */
+	public function unsubscribeAction(Tx_Finewsletter_Domain_Model_Recipient $recipient = NULL) {
+		if ($recipient == NULL) { // workaround for fluid bug ##5636
+			$recipient = t3lib_div::makeInstance('Tx_Finewsletter_Domain_Model_Recipient');
+		}
+		$this->view->assign('recipient', $recipient);
+	}
+
+	/**
+	 * remove action
+	 *
+	 * @param $recipient
+	 * @return void
+	 */
+	public function removeAction(Tx_Finewsletter_Domain_Model_Recipient $recipient) {
+		$userValidator = $this->objectManager->get('Tx_Finewsletter_Validator_RecipientValidator');
+		// Prevent flashMessage flood
+		$this->flashMessageContainer->flush();
+
+		$email = $recipient->getEmail();
+
+		if($userValidator->isEmailValid($email) === FALSE) {
+			$this->flashMessageContainer->add('Keine gültige E-Mail Addresse.');
+			$this->redirect('unsubscribe');
+		} elseif($userValidator->doesEmailExist($email) === FALSE) {
+			$this->flashMessageContainer->add('E-Mail Addresse nicht vorhanden.');
+			$this->redirect('unsubscribe');
+		} else {
+			$recipient = $this->recipientRepository->findOneByEmail($email);
+			$recipient->setActive(FALSE);
+			$this->recipientRepository->update($recipient);
+			$this->redirect('unsubscribed');
+		}
+
+	}
+
+	/**
+	 * unsubscriped action
+	 *
+	 * @return void
+	 */
+	public function unsubscribedAction() {
+	}
 }
 ?>

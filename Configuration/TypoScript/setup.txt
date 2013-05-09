@@ -13,11 +13,11 @@ plugin.tx_finewsletter {
             fromName = DHBW Mindstage
             fromEmail = no-reply@mindstage.de
 
-            registration {
+            subscription {
                 subject = Ihre Anmeldung für den Newsletter.
                 templates {
-                    html = EXT:finewsletter/Resources/Private/Templates/Email/Registration.html
-                    plain = EXT:finewsletter/Resources/Private/Templates/Email/Registration.txt
+                    html = EXT:finewsletter/Resources/Private/Templates/Email/Subscription.html
+                    plain = EXT:finewsletter/Resources/Private/Templates/Email/Subscription.txt
                 }
             }
         }

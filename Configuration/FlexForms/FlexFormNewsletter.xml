@@ -1,0 +1,39 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+		<langChildren>1</langChildren>
+	</meta>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Settings</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>Action</label>
+							<onChange>reload</onChange>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">Subscription</numIndex>
+										<numIndex index="1">Recipient->subscribe; Recipient->create; Recipient->subscribed; Recipient->verify; Recipient->update</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">Unsubscription</numIndex>
+										<numIndex index="1">Recipient->unsubscribe; Recipient->unsubscribed; Recipient->remove</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>1</maxitems>
+								<size>1</size>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

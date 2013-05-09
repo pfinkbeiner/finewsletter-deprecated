@@ -6,8 +6,12 @@ if (!defined('TYPO3_MODE')) {
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
 	'Registration',
-	'registration'
+	'Fi Newsletter'
 );
+
+$pluginSignature = str_replace('_','',$_EXTKEY) . '_' . 'registration';
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexFormNewsletter.xml');
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Simple Newsletter Registration');
 

@@ -12,13 +12,13 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>New Recipient</h1>
+<h1>Subscribe Recipient</h1>
 
 <f:flashMessages />
 
 <f:render partial="FormErrors" />
 
-<div class="finewsletter finewsletter-registration">
+<div class="finewsletter finewsletter-subscribe">
 	<f:form action="create"  name="newRecipient" object="{newRecipient}">
 	<f:render partial="Recipient/FormFields" />
 	<f:form.submit value="{f:translate(key: 'tx_finewsletter_domain_model_recipient.subscribe')}" />

@@ -203,6 +203,8 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 					$emailContent['plain'],
 					$this->settings['mail']
 				);
+				$this->flashMessageContainer->add('Bestätigungsemail wurde versendet.');
+				$this->redirect('unsubscribe');
 			}
 		} else {
 			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');

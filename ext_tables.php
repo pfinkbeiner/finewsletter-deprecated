@@ -9,6 +9,29 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	'Fi Newsletter'
 );
 
+if (TYPO3_MODE === 'BE') {
+
+	/**
+	 * Registers a Backend Module
+	 */
+	Tx_Extbase_Utility_Extension::registerModule(
+		$_EXTKEY,
+		'tools',	 // Make module a submodule of 'tools'
+		'export',	// Submodule key
+		'',						// Position
+		array(
+			'Recipient' => 'export',
+		),
+		array(
+			'access' => 'user,group',
+			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
+			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_export.xml',
+		)
+	);
+
+}
+
+
 $pluginSignature = str_replace('_','',$_EXTKEY) . '_' . 'registration';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexFormNewsletter.xml');

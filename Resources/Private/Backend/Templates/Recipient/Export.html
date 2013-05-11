@@ -1,0 +1,43 @@
+{namespace fi=Tx_Finewsletter_ViewHelpers_Backend}
+<f:layout name="Default" />
+
+This template displays a NEW form for the current domain object.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        New.html: keep
+
+		Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+		<f:section name="content">
+		@NOTE: UNDER CONSTRUCTION!
+		Backend Module gives you vestigial overview of all subscriptions which are active!
+		<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
+			<tbody>
+				<tr class="c-table-row-spacer">
+					<td nowrap="nowrap" class="col-icon"><img src="clear.gif" width="1" height="8" alt=""></td>
+
+					<td nowrap="nowrap" class=""><img src="clear.gif" width="230" height="1" alt=""></td>
+					<td nowrap="nowrap" class="col-control" colspan="2"></td>
+					<td nowrap="nowrap" class="col-clipboard" colspan="3"></td>
+				</tr>
+		<tr class="t3-row-header">Newsletter Subscriptions ({count})</tr>
+		<tr class="t3-row-header">Newsletter Subscriptions ({count})</tr>
+
+		<f:for each="{recipients}" as="recipient">
+			<tr class="db_list_normal">
+				<td nowrap="nowrap">
+					{recipient.email}
+				</td>
+				<td>
+					{recipient.token}
+				</td>
+			</tr>
+		</f:for>
+	</tbody>
+</table>
+
+</f:section>

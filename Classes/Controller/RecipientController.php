@@ -249,5 +249,16 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 */
 	public function unsubscribedAction() {
 	}
+
+	/**
+	 * Backendmodule export function
+	 *
+	 * @return void
+	 */
+	public function exportAction() {
+		$recipients = $this->recipientRepository->findByActive(TRUE);
+		$this->view->assign('count', count($recipients));
+		$this->view->assign('recipients', $recipients);
+	}
 }
 ?>

@@ -1,3 +1,17 @@
+module.tx_finewsletter {
+	view {
+		# cat=module.tx_finewsletter/file; type=string; label=Path to template root (BE)
+		templateRootPath = EXT:finewsletter/Resources/Private/Backend/Templates/
+		# cat=module.tx_finewsletter/file; type=string; label=Path to template partials (BE)
+		partialRootPath = EXT:finewsletter/Resources/Private/Backend/Partials/
+		# cat=module.tx_finewsletter/file; type=string; label=Path to template layouts (BE)
+		layoutRootPath = EXT:finewsletter/Resources/Private/Backend/Layouts/
+	}
+	persistence {
+		# cat=module.tx_finewsletter//a; type=int+; label=Default storage PID
+		storagePid = 38
+	}
+}
 plugin.tx_finewsletter {
 	view {
 		# cat=plugin.tx_finewsletter/file; type=string; label=Path to template root (FE)

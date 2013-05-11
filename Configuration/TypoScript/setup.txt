@@ -1,3 +1,4 @@
+# Frontend configuration
 plugin.tx_finewsletter {
 	view {
 		templateRootPath = {$plugin.tx_finewsletter.view.templateRootPath}
@@ -30,23 +31,15 @@ plugin.tx_finewsletter {
         }
     }
 }
-
-plugin.tx_finewsletter._CSS_DEFAULT_STYLE (
-	input.f3-form-error {
-		background-color:#FF9F9F;
-		border: 1px #FF0000 solid;
+# Backend Module configuration
+module.tx_finewsletter {
+	persistence {
+		storagePid = {$module.tx_finewsletter.persistence.storagePid}
 	}
-
-	.tx-finewsletter table {
-		border-collapse:separate;
-		border-spacing:10px;
+	view {
+		templateRootPath = {$module.tx_finewsletter.view.templateRootPath}
+		partialRootPath = {$module.tx_finewsletter.view.partialRootPath}
+		layoutRootPath = {$module.tx_finewsletter.view.layoutRootPath}
 	}
+}
 
-	.tx-finewsletter table th {
-		font-weight:bold;
-	}
-
-	.tx-finewsletter table td {
-		vertical-align:top;
-	}
-)

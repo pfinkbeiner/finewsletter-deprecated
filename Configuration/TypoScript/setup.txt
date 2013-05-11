@@ -20,6 +20,13 @@ plugin.tx_finewsletter {
                     plain = EXT:finewsletter/Resources/Private/Templates/Email/Subscription.txt
                 }
             }
+            unsubscribe {
+                subject = Ihre Abmeldung für den Newsletter.
+                templates {
+                    html = EXT:finewsletter/Resources/Private/Templates/Email/Unsubscribe.html
+                    plain = EXT:finewsletter/Resources/Private/Templates/Email/Unsubscribe.txt
+                }
+            }
         }
     }
 }

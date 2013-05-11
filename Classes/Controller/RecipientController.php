@@ -158,41 +158,64 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 *
 	 * This carries about double opt-out via website.
 	 *
-	 * @param $newRecipient
-	 * @dontvalidate $newRecipient
 	 * @return void
 	 */
-	public function unsubscribeAction(Tx_Finewsletter_Domain_Model_Recipient $recipient = NULL) {
-		if ($recipient == NULL) { // workaround for fluid bug ##5636
-			$recipient = t3lib_div::makeInstance('Tx_Finewsletter_Domain_Model_Recipient');
-		}
-		$this->view->assign('recipient', $recipient);
+	public function unsubscribeAction() {
 	}
 
 	/**
 	 * remove action
 	 *
-	 * @param $recipient
+	 * @param Tx_Finewsletter_Domain_Model_Recipient $recipient
+	 * @param string $auth
 	 * @return void
 	 */
-	public function removeAction(Tx_Finewsletter_Domain_Model_Recipient $recipient) {
-		$userValidator = $this->objectManager->get('Tx_Finewsletter_Validator_RecipientValidator');
+	public function removeAction(Tx_Finewsletter_Domain_Model_Recipient $recipient, $auth = NULL) {
 		// Prevent flashMessage flood
 		$this->flashMessageContainer->flush();
-
 		$email = $recipient->getEmail();
+		if($auth === NULL) {
+			$userValidator = $this->objectManager->get('Tx_Finewsletter_Validator_RecipientValidator');
 
-		if($userValidator->isEmailValid($email) === FALSE) {
-			$this->flashMessageContainer->add('Keine gültige E-Mail Addresse.');
-			$this->redirect('unsubscribe');
-		} elseif($userValidator->doesEmailExist($email) === FALSE) {
-			$this->flashMessageContainer->add('E-Mail Addresse nicht vorhanden.');
-			$this->redirect('unsubscribe');
+			if($userValidator->isEmailValid($email) === FALSE) {
+				$this->flashMessageContainer->add('Keine gültige E-Mail Addresse.');
+				$this->redirect('unsubscribe');
+			} elseif($userValidator->doesEmailExist($email) === FALSE) {
+				$this->flashMessageContainer->add('E-Mail Addresse nicht vorhanden.');
+				$this->redirect('unsubscribe');
+			} else {
+				$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
+				$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
+				$recipient = $this->recipientRepository->findOneByEmail($email);
+
+				$emailContent = $mailService->generateEmailContent(array(
+					'html'  => $this->settings['mail']['unsubscribe']['templates']['html'],
+					'plain' => $this->settings['mail']['unsubscribe']['templates']['plain']
+				), array(
+					'unsubscribeLink' => $securityService->generateUnsubscribeLink($recipient, $this->uriBuilder) 
+				), TRUE, TRUE);
+
+				$mailService->sendMail(
+					$this->objectManager->get('t3lib_mail_Message'),
+					$email,
+					$this->settings['mail']['unsubscribe']['subject'],
+					$emailContent['html'],
+					$emailContent['plain'],
+					$this->settings['mail']
+				);
+			}
 		} else {
+			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
+			// Immediate unsubscribe
 			$recipient = $this->recipientRepository->findOneByEmail($email);
-			$recipient->setActive(FALSE);
-			$this->recipientRepository->update($recipient);
-			$this->redirect('unsubscribed');
+			if($securityService->isUnsubscribeLinkValid($recipient, $auth) === TRUE) {
+				$recipient->setActive(FALSE);
+				$this->recipientRepository->update($recipient);
+				$this->redirect('unsubscribed');
+			} else {
+				$this->flashMessageContainer->add('Ein Fehler ist aufgetreten. Bitte versuchen sie es erneut.');
+				$this->redirect('unsubscribed');
+			}
 		}
 
 	}

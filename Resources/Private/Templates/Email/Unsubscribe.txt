@@ -1,0 +1,4 @@
+{namespace fi=Tx_Finewsletter_ViewHelpers}
+
+Für entgültige Abmeldung bitte hier klicken:
+<fi:htmlEntityDecode entities="{unsubscribeLink}" />

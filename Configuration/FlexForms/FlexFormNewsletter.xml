@@ -23,7 +23,7 @@
 										<numIndex index="1">Recipient->subscribe; Recipient->create; Recipient->subscribed; Recipient->verify; Recipient->update</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
-										<numIndex index="0">Unsubscription</numIndex>
+										<numIndex index="0">Unsubscribe</numIndex>
 										<numIndex index="1">Recipient->unsubscribe; Recipient->unsubscribed; Recipient->remove</numIndex>
 									</numIndex>
 								</items>

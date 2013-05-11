@@ -66,7 +66,7 @@ class Tx_Finewsletter_Service_SecurityService implements t3lib_Singleton {
 	 * @param string $hash
 	 * @return boolean
 	 */
-	public function isSecurityHashValid($recipient, $hash) {
+	public function isSecurityHashValid(Tx_Finewsletter_Domain_Model_Recipient $recipient, $hash) {
 		$status = FALSE;
 		$md5Email = md5($recipient->getEmail());
 		$md5Token = md5($recipient->getToken());
@@ -74,6 +74,23 @@ class Tx_Finewsletter_Service_SecurityService implements t3lib_Singleton {
 		$originHash = substr($md5Email . $md5Token, 16, 32);
 		if($originHash === $hash) {
 			// valid
+			$status = TRUE;
+		} 
+		return $status;
+	}
+
+
+	/**
+	 * Validates unsusbscribe link
+	 *
+	 * @param Tx_Finewsletter_Domain_Model_Recipient $recipient
+	 * @param string $deliveredToken
+	 * @return boolean
+	 */
+	public function isUnsubscribeLinkValid(Tx_Finewsletter_Domain_Model_Recipient $recipient, $deliveredToken) {
+		$status = FALSE;
+		$originToken = $recipient->getToken();
+		if($originToken === $deliveredToken) {
 			$status = TRUE;
 		} 
 		return $status;
@@ -93,6 +110,23 @@ class Tx_Finewsletter_Service_SecurityService implements t3lib_Singleton {
 			->setCreateAbsoluteUri(TRUE)
 			->setUseCacheHash(FALSE)
 			->uriFor('verify', array( 'recipient' => $newRecipient, 'hash' => $this->generateSecurityHash($newRecipient)));
+		return $uri;
+	}
+
+	/**
+	 * Generate unsubscribe Link
+	 *
+	 * @param Tx_Finewsletter_Domain_Model_Recipient $recipient
+	 * @param Tx_Extbase_MVC_Web_Routing_UriBuilder $uriBuilder
+	 * @return string
+	 */
+	public function generateUnsubscribeLink(Tx_Finewsletter_Domain_Model_Recipient $recipient, Tx_Extbase_MVC_Web_Routing_UriBuilder $uriBuilder = NULL) {
+		$uriBuilder = ($uriBuilder === NULL) ? $this->uriBuilder : $uriBuilder;
+		$uri = $uriBuilder
+			->reset()
+			->setCreateAbsoluteUri(TRUE)
+			->setUseCacheHash(FALSE)
+			->uriFor('remove', array( 'recipient' => $recipient, 'auth' => $recipient->getToken()));
 		return $uri;
 	}
 }

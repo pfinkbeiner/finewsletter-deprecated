@@ -82,9 +82,29 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			$this->redirect('subscribe');
 		} elseif($userValidator->doesEmailExist($email) === TRUE) {
 			// Check if user is already subscribed (active)
-			if ($userValidator->isUserInactive === TRUE) {
+			$newRecipient = $this->recipientRepository->findOneByEmail($newRecipient->getEmail());
+			if ($newRecipient->isActive() === FALSE) {
 				$this->flashMessageContainer->add('E-Mail Addresse bereits vorhanden. Erneute verifizierungsemail wurde verschickt.');
+
+				$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
+				$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
+				$emailContent = $mailService->generateEmailContent(array(
+					'html'  => $this->settings['mail']['subscription']['templates']['html'],
+					'plain' => $this->settings['mail']['subscription']['templates']['plain']
+				), array(
+					'verifyLink' => $securityService->generateVerifyLink($newRecipient, $this->uriBuilder) 
+				), TRUE, TRUE);
+
+				$mailService->sendMail(
+					$this->objectManager->get('t3lib_mail_Message'),
+					$email,
+					$this->settings['mail']['subscription']['subject'],
+					$emailContent['html'],
+					$emailContent['plain'],
+					$this->settings['mail']
+				);
 				$this->redirect('subscribe');
+
 			} else {
 				$this->flashMessageContainer->add('E-Mail Addresse bereits vorhanden.');
 				$this->redirect('subscribe');

@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Simple Newsletter',
-	'description' => 'A damn simple newsletter extension with a subscription (double opt-in) and unsubscribtion (single).',
+	'description' => 'A damn simple newsletter extension with a subscription (double opt-in) and unsubscribtion (single / double opt-out).',
 	'category' => 'plugin',
 	'author' => 'Patrick Finkbeiner',
 	'author_email' => 'finkbeiner.patrick@gmail.com',
@@ -20,14 +20,14 @@ $EM_CONF[$_EXTKEY] = array(
 	'shy' => '',
 	'priority' => '',
 	'module' => '',
-	'state' => 'alpha',
+	'state' => 'beta',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'modify_tables' => '',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
-	'version' => '0.1.0',
+	'version' => '1.0.0',
 	'constraints' => array(
 		'depends' => array(
 			'extbase' => '1.3',

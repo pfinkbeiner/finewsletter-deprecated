@@ -25,4 +25,30 @@ plugin.tx_finewsletter {
 		# cat=plugin.tx_finewsletter//a; type=int+; label=Default storage PID
 		storagePid = 
 	}
+    settings {
+        mail {
+            test = true
+            senderName = Newsletter System
+            senderEmail = newsletter@example.com
+
+            subscribe {
+                subject = Please confirm your subscription to our newsletter.
+                templates { 
+                    html = EXT:finewsletter/Resources/Private/Templates/Mail/Subscribe.html
+                    plain = EXT:finewsletter/Resources/Private/Templates/Mail/Subscribe.txt
+                }
+                # Jump to pageUID, if empty redirect to subscribed Action
+                redirect = 39
+            }
+            unsubscribe {
+                subject = Unsubscribe from our newsletter complete.
+                templates {
+                    html = EXT:finewsletter/Resources/Private/Templates/Mail/Unsubscribe.html
+                    plain = EXT:finewsletter/Resources/Private/Templates/Mail/Unsubscribe.txt
+                }
+                # Jump to pageUID, if empty redirect to unsubscribed Action
+                redirect = 40
+            }
+        } 
+    }
 }

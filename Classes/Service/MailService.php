@@ -38,7 +38,7 @@ class Tx_Finewsletter_Service_MailService implements t3lib_Singleton {
 	 * @param string $subject
 	 * @param string $messageHtml
 	 * @param string $messagePlaintext
-	 * @param array $mailSettings contains fromEmail, fromName
+	 * @param array $mailSettings contains senderEmail, senderName
 	 * @return boolean
 	 */
 	public function sendMail(t3lib_mail_Message $mailer, $recipient, $subject, $messageHtml = '', $messagePlaintext = '', array $mailSettings) {
@@ -48,7 +48,7 @@ class Tx_Finewsletter_Service_MailService implements t3lib_Singleton {
 		// Add this for testing… no messages are getting send out!
 		if ($mailSettings['test'] === 'true') {
 			$now = new DateTime('now');
-			$mail = 'From: ' . $mailSettings['fromEmail'] . ' ' . $mailSettings['fromName'] . chr(10) .
+			$mail = 'From: ' . $mailSettings['senderEmail'] . ' ' . $mailSettings['senderName'] . chr(10) .
 				'To: ' . $recipient . chr(10) .
 				'Subject: ' . $subject . chr(10) .
 				'Date: ' . $now->format('Y-m-d H:i:s') . chr(10) .
@@ -60,15 +60,15 @@ class Tx_Finewsletter_Service_MailService implements t3lib_Singleton {
 			file_put_contents(t3lib_div::getFileAbsFileName('EXT:finewsletter/mails.txt'), $mail, FILE_APPEND);
 		} else {
 			try {
-				$mailer->setFrom(Array($mailSettings['fromEmail'] => $mailSettings['fromName']))
+				$mailer->setFrom(Array($mailSettings['senderEmail'] => $mailSettings['senderName']))
 					->setTo($recipient)
 					->setSubject($subject)
 					->setBody($messageHtml, 'text/html')
 					->addPart($messagePlaintext, 'text/plain')
-					->setSender($mailSettings['fromEmail'], $mailSettings['fromName'])
+					->setSender($mailSettings['senderEmail'], $mailSettings['senderName'])
 					->send();
 			} catch(Exception $e) {
-				t3lib_div::sysLog($e->getMessage(), 'vsouabstract' ,3);
+				t3lib_div::sysLog($e->getMessage(), 'finewsletter' ,3);
 				$status = !$status;
 			}
 		}

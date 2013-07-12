@@ -89,8 +89,8 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 				$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
 				$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
 				$emailContent = $mailService->generateEmailContent(array(
-					'html'  => $this->settings['mail']['subscription']['templates']['html'],
-					'plain' => $this->settings['mail']['subscription']['templates']['plain']
+					'html'  => $this->settings['mail']['subscribe']['templates']['html'],
+					'plain' => $this->settings['mail']['subscribe']['templates']['plain']
 				), array(
 					'verifyLink' => $securityService->generateVerifyLink($newRecipient, $this->uriBuilder) 
 				), TRUE, TRUE);
@@ -98,7 +98,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 				$mailService->sendMail(
 					$this->objectManager->get('t3lib_mail_Message'),
 					$email,
-					$this->settings['mail']['subscription']['subject'],
+					$this->settings['mail']['subscribe']['subject'],
 					$emailContent['html'],
 					$emailContent['plain'],
 					$this->settings['mail']
@@ -122,8 +122,8 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			$persistenceManager->persistAll();
 
 			$emailContent = $mailService->generateEmailContent(array(
-				'html'  => $this->settings['mail']['subscription']['templates']['html'],
-				'plain' => $this->settings['mail']['subscription']['templates']['plain']
+				'html'  => $this->settings['mail']['subscribe']['templates']['html'],
+				'plain' => $this->settings['mail']['subscribe']['templates']['plain']
 			), array(
 				'verifyLink' => $securityService->generateVerifyLink($newRecipient, $this->uriBuilder) 
 			), TRUE, TRUE);
@@ -131,7 +131,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			$mailService->sendMail(
 				$this->objectManager->get('t3lib_mail_Message'),
 				$email,
-				$this->settings['mail']['subscription']['subject'],
+				$this->settings['mail']['subscribe']['subject'],
 				$emailContent['html'],
 				$emailContent['plain'],
 				$this->settings['mail']
@@ -170,7 +170,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	}
 
 	/**
-	 * unsubscripe action
+	 * unsubscribe action
 	 *
 	 * There should be two ways for unsubscribe. 
 	 * Immediately by link in newsletter.
@@ -243,7 +243,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	}
 
 	/**
-	 * unsubscriped action
+	 * unsubscribed action
 	 *
 	 * @return void
 	 */

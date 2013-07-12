@@ -10,23 +10,25 @@ plugin.tx_finewsletter {
 	}
     settings {
         mail {
-            test = true
-            fromName = DHBW Mindstage
-            fromEmail = no-reply@mindstage.de
+            test = {$plugin.tx_finewsletter.settings.mail.test}
+            senderName = {$plugin.tx_finewsletter.settings.mail.senderName}
+            senderEmail = {$plugin.tx_finewsletter.settings.mail.senderEmail}
 
-            subscription {
-                subject = Ihre Anmeldung für den Newsletter.
+            subscribe {
+                subject = {$plugin.tx_finewsletter.settings.mail.subscribe.subject}
                 templates {
-                    html = EXT:finewsletter/Resources/Private/Templates/Email/Subscription.html
-                    plain = EXT:finewsletter/Resources/Private/Templates/Email/Subscription.txt
+                    html = {$plugin.tx_finewsletter.settings.mail.subscribe.templates.html}
+                    plain = {$plugin.tx_finewsletter.settings.mail.subscribe.templates.plain}
                 }
+                redirect = {$plugin.tx_finewsletter.settings.mail.subscribe.redirect}
             }
             unsubscribe {
-                subject = Ihre Abmeldung für den Newsletter.
+                subject = {$plugin.tx_finewsletter.settings.mail.unsubscribe.subject}
                 templates {
-                    html = EXT:finewsletter/Resources/Private/Templates/Email/Unsubscribe.html
-                    plain = EXT:finewsletter/Resources/Private/Templates/Email/Unsubscribe.txt
+                    html = {$plugin.tx_finewsletter.settings.mail.unsubscribe.templates.html}
+                    plain = {$plugin.tx_finewsletter.settings.mail.unsubscribe.templates.plain}
                 }
+                redirect = {$plugin.tx_finewsletter.settings.mail.unsubscribe.redirect}
             }
         }
     }

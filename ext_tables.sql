@@ -7,6 +7,10 @@ CREATE TABLE tx_finewsletter_domain_model_recipient (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	email varchar(255) DEFAULT '' NOT NULL,
+	name varchar(255) DEFAULT '' NOT NULL,
+	first_name varchar(255) DEFAULT '' NOT NULL,
+	last_name varchar(255) DEFAULT '' NOT NULL,
+	language varchar(255) DEFAULT '' NOT NULL,
 	active tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	token varchar(255) DEFAULT '' NOT NULL,
 

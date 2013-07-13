@@ -102,6 +102,42 @@ $TCA['tx_finewsletter_domain_model_recipient'] = array(
 				'eval' => 'trim,required'
 			),
 		),
+		'name' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:finewsletter/Resources/Private/Language/locallang_db.xml:tx_finewsletter_domain_model_recipient.name',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,required'
+			),
+		),
+		'firstName' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:finewsletter/Resources/Private/Language/locallang_db.xml:tx_finewsletter_domain_model_recipient.firstName',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,required'
+			),
+		),
+		'lastName' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:finewsletter/Resources/Private/Language/locallang_db.xml:tx_finewsletter_domain_model_recipient.lastName',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,required'
+			),
+		),
+		'language' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:finewsletter/Resources/Private/Language/locallang_db.xml:tx_finewsletter_domain_model_recipient.language',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,required'
+			),
+		),
 		'active' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:finewsletter/Resources/Private/Language/locallang_db.xml:tx_finewsletter_domain_model_recipient.active',

@@ -9,6 +9,10 @@
             
 			<label index="tx_finewsletter_domain_model_recipient">Recipient</label>
 			<label index="tx_finewsletter_domain_model_recipient.email">Email</label>
+			<label index="tx_finewsletter_domain_model_recipient.name">name</label>
+			<label index="tx_finewsletter_domain_model_recipient.firstName">firstName</label>
+			<label index="tx_finewsletter_domain_model_recipient.lastName">lastName</label>
+			<label index="tx_finewsletter_domain_model_recipient.language">language</label>
 			<label index="tx_finewsletter_domain_model_recipient.active">Active</label>
 
 		</languageKey>

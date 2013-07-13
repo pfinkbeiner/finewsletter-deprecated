@@ -59,11 +59,79 @@ class Tx_Finewsletter_Domain_Model_RecipientTest extends Tx_Extbase_Tests_Unit_B
 	 * @test
 	 */
 	public function setEmailForStringSetsEmail() { 
-		$this->fixture->setEmail('Conceived at T3CON10');
+		$this->fixture->setEmail('john@doe.com');
 
 		$this->assertSame(
-			'Conceived at T3CON10',
+			'john@doe.com',
 			$this->fixture->getEmail()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getNameReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setNameForStringSetsName() { 
+		$this->fixture->setName('John');
+
+		$this->assertSame(
+			'John',
+			$this->fixture->getName()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFirstNameReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setFirstNameForStringSetsFirstName() { 
+		$this->fixture->setFirstName('John');
+
+		$this->assertSame(
+			'John',
+			$this->fixture->getFirstName()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLastNameReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setLastNameForStringSetsLastName() { 
+		$this->fixture->setLastName('Doe');
+
+		$this->assertSame(
+			'Doe',
+			$this->fixture->getLastName()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getLanguageReturnsInitialValueForString() { }
+
+	/**
+	 * @test
+	 */
+	public function setLanguageForStringSetsLanguage() { 
+		$this->fixture->setLanguage('English');
+
+		$this->assertSame(
+			'English',
+			$this->fixture->getLanguage()
 		);
 	}
 	
@@ -72,7 +140,7 @@ class Tx_Finewsletter_Domain_Model_RecipientTest extends Tx_Extbase_Tests_Unit_B
 	 */
 	public function getActiveReturnsInitialValueForBoolean() { 
 		$this->assertSame(
-			TRUE,
+			FALSE,
 			$this->fixture->getActive()
 		);
 	}

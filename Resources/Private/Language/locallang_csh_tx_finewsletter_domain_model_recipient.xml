@@ -10,6 +10,10 @@
 	   
 			<label index="email.description">email</label>
 			<label index="active.description">active</label>
+			<label index="name.description">name</label>
+			<label index="firstName.description">firstName</label>
+			<label index="lastName.description">lastName</label>
+			<label index="language.description">language</label>
 		</languageKey>
 	</data>
 </T3locallang>

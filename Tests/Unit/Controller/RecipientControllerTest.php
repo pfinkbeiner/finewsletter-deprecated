@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  * @package TYPO3
- * @subpackage Simple Newsletter Registration
+ * @subpackage Simple Newsletter
  *
  * @author Patrick Finkbeiner <finkbeiner.patrick@gmail.com>
  */

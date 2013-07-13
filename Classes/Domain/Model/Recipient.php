@@ -42,6 +42,34 @@ class Tx_Finewsletter_Domain_Model_Recipient extends Tx_Extbase_DomainObject_Abs
 	protected $email;
 
 	/**
+	 * name
+	 *
+	 * @var string
+	 */
+	protected $name;
+
+	/**
+	 * firstName
+	 *
+	 * @var string
+	 */
+	protected $firstName;
+
+	/**
+	 * lastName
+	 *
+	 * @var string
+	 */
+	protected $lastName;
+
+	/**
+	 * language
+	 *
+	 * @var string
+	 */
+	protected $language;
+
+	/**
 	 * active
 	 *
 	 * @var boolean
@@ -72,6 +100,82 @@ class Tx_Finewsletter_Domain_Model_Recipient extends Tx_Extbase_DomainObject_Abs
 	 */
 	public function setEmail($email) {
 		$this->email = $email;
+	}
+
+	/**
+	 * Returns the name
+	 *
+	 * @return string $name
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * Sets the name
+	 *
+	 * @param string $name
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	/**
+	 * Returns the firstName
+	 *
+	 * @return string $firstName
+	 */
+	public function getFirstName() {
+		return $this->firstName;
+	}
+
+	/**
+	 * Sets the firstName
+	 *
+	 * @param string $firstName
+	 * @return void
+	 */
+	public function setFirstName($firstName) {
+		$this->firstName = $firstName;
+	}
+
+	/**
+	 * Returns the lastName
+	 *
+	 * @return string $lastName
+	 */
+	public function getLastName() {
+		return $this->lastName;
+	}
+
+	/**
+	 * Sets the lastName
+	 *
+	 * @param string $lastName
+	 * @return void
+	 */
+	public function setLastName($lastName) {
+		$this->lastName = $lastName;
+	}
+
+	/**
+	 * Returns the language
+	 *
+	 * @return string $language
+	 */
+	public function getLanguage() {
+		return $this->language;
+	}
+
+	/**
+	 * Sets the language
+	 *
+	 * @param string $language
+	 * @return void
+	 */
+	public function setLanguage($language) {
+		$this->language = $language;
 	}
 
 	/**

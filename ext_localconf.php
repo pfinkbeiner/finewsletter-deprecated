@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
-	'Subscription',
+	'Registration',
 	array(
 		'Recipient' => 'subscribe, create, subscribed, verify, unsubscribe, unsubscribed, remove',
 	),

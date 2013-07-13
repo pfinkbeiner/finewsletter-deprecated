@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
-	'Registration',
+	'Subscripton',
 	'Fi Newsletter'
 );
 
@@ -32,11 +32,11 @@ if (TYPO3_MODE === 'BE') {
 }
 
 
-$pluginSignature = str_replace('_','',$_EXTKEY) . '_' . 'registration';
+$pluginSignature = str_replace('_','',$_EXTKEY) . '_' . 'subscription';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/FlexFormNewsletter.xml');
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Simple Newsletter Registration');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Simple Newsletter');
 
 			t3lib_extMgm::addLLrefForTCAdescr('tx_finewsletter_domain_model_recipient', 'EXT:finewsletter/Resources/Private/Language/locallang_csh_tx_finewsletter_domain_model_recipient.xml');
 			t3lib_extMgm::allowTableOnStandardPages('tx_finewsletter_domain_model_recipient');

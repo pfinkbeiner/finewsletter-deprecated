@@ -13,8 +13,8 @@ Note: This extension is still under development, but the basics work well. That'
 
 ### Installation
 1. Get the latest tagged version.
-2. Install via TYPO3 extension manager.
-3. Include extenion typoscript into your root template.
+2. Install it via TYPO3 extension manager.
+3. Include extension typoscript into your root template.
 4. Setup a storage folder.
 5. Include frontend plugin.
 
@@ -69,7 +69,7 @@ messages {
 ```
 
 #### Redirects
-After each action there is a redirect option available. Either you stay on page and use a simple actino redirect or you can jump to a specified pageUid. _In this example you will be redirected to page with uid 40 after successfull subscription. After successfull unsubscribe you will be redirected to same page with different action, because its empty_
+After each action there are two redirect options available. Either you stay on page and use a simple action redirect or you can jump to a specified pageUid. _In this example you will be redirected to page with uid 40 after successfull subscription. After successfull unsubscribe you will stay on page with different action (template)._
 
 ```
 redirect {

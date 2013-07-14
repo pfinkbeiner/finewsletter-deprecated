@@ -26,6 +26,21 @@ plugin.tx_finewsletter {
 		storagePid = 
 	}
     settings {
+        messages {
+            subscribe {
+                invalidEmail = Not a valid email address.
+                emailExistsNotActive = Email already exists, but is not active, yet. Another confirmation email has been sent.
+                emailExists = Email already exists.
+                confirmationSent = A confirmation email has been sent.
+                invalidConfirmationLink = Your subscribe link seems invalid.
+            }
+            unsubscribe {
+                invalidEmail = Not a valid email address.
+                unknownEmail = Email address does not exist.
+                confirmationSent = An unsubscribe confirmation email has been sent.
+                invalidConfirmationLink = Your unsubscribe link seems invalid.
+            }
+        }
         mail {
             test = true
             senderName = Newsletter System

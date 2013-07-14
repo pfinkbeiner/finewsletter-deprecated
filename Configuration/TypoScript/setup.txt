@@ -31,6 +31,21 @@ plugin.tx_finewsletter {
                 redirect = {$plugin.tx_finewsletter.settings.mail.unsubscribe.redirect}
             }
         }
+        messages {
+            subscribe {
+                invalidEmail = {$plugin.tx_finewsletter.settings.error.subscribe.invalidEmail}
+                emailExistsNotActive = {$plugin.tx_finewsletter.settings.error.subscribe.emailExistsNotActive}
+                emailExists = {$plugin.tx_finewsletter.settings.error.subscribe.emailExists}
+                confirmationSent = {$plugin.tx_finewsletter.settings.error.subscribe.confirmationSent}
+                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.error.subscribe.invalidConfirmationLink}
+            }
+            unsubscribe {
+                invalidEmail = {$plugin.tx_finewsletter.settings.error.unsubscribe.invalidEmail}
+                unknownEmail = {$plugin.tx_finewsletter.settings.error.unsubscribe.unknownEmail}
+                confirmationSent = {$plugin.tx_finewsletter.settings.error.unsubscribe.confirmationSent}
+                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.error.unsubscribe.invalidConfirmationLink}
+            }
+        }
     }
 }
 # Backend Module configuration

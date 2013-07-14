@@ -72,15 +72,19 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 */
 	public function createAction(Tx_Finewsletter_Domain_Model_Recipient $newRecipient) {
 		$userValidator = $this->objectManager->get('Tx_Finewsletter_Validator_RecipientValidator');
+		// Prevent flashMessage flood
+		$this->flashMessageContainer->flush();
 
 		$email = $newRecipient->getEmail();
 
 		if($userValidator->isEmailValid($email) === FALSE) {
+			$this->flashMessageContainer->add($this->settings['messages']['subscribe']['invalidEmail']);
 			$this->redirect('subscribe');
 		} elseif($userValidator->doesEmailExist($email) === TRUE) {
 			// Check if user is already subscribed (active)
 			$newRecipient = $this->recipientRepository->findOneByEmail($newRecipient->getEmail());
 			if ($newRecipient->isActive() === FALSE) {
+				$this->flashMessageContainer->add($this->settings['messages']['subscribe']['emailExistsNotActive']);
 
 				$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
 				$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
@@ -102,6 +106,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 				$this->redirect('subscribe');
 
 			} else {
+				$this->flashMessageContainer->add($this->settings['messages']['subscribe']['emailExists']);
 				$this->redirect('subscribe');
 			}
 		} else {
@@ -186,13 +191,17 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 * @return void
 	 */
 	public function removeAction(Tx_Finewsletter_Domain_Model_Recipient $recipient, $auth = NULL) {
+		// Prevent flashMessage flood
+		$this->flashMessageContainer->flush();
 		$email = $recipient->getEmail();
 		if($auth === NULL) {
 			$userValidator = $this->objectManager->get('Tx_Finewsletter_Validator_RecipientValidator');
 
 			if($userValidator->isEmailValid($email) === FALSE) {
+				$this->flashMessageContainer->add($this->settings['messages']['unsubscribe']['invalidEmail']);
 				$this->redirect('unsubscribe');
 			} elseif($userValidator->doesEmailExist($email) === FALSE) {
+				$this->flashMessageContainer->add($this->settings['messages']['unsubscribe']['unknownEmail']);
 				$this->redirect('unsubscribe');
 			} else {
 				$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
@@ -214,6 +223,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 					$emailContent['plain'],
 					$this->settings['mail']
 				);
+				$this->flashMessageContainer->add($this->settings['messages']['unsubscribe']['confirmationSent']);
 				$this->redirect('unsubscribe');
 			}
 		} else {
@@ -225,6 +235,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 				$this->recipientRepository->update($recipient);
 				$this->redirect('unsubscribed');
 			} else {
+				$this->flashMessageContainer->add($this->settings['messages']['unsubscribe']['invalidConfirmationLink']);
 				$this->redirect('unsubscribed');
 			}
 		}

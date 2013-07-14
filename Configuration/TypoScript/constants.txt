@@ -59,8 +59,8 @@ plugin.tx_finewsletter {
             }
         }
         redirect {
-            subscribe = 39
-            unsubscribe = 40
+            subscribe =
+            unsubscribe =
         }
         mail {
             test = true

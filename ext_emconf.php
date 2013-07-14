@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Simple Newsletter',
-	'description' => 'A damn simple newsletter extension with a subscription (double opt-in) and unsubscribtion (single / double opt-out).',
+	'description' => 'A really easy to use newsletter management extension for TYPO3 written in extbase & fluid.',
 	'category' => 'plugin',
 	'author' => 'Patrick Finkbeiner',
 	'author_email' => 'finkbeiner.patrick@gmail.com',

@@ -77,5 +77,19 @@ class Tx_Finewsletter_Validator_RecipientValidator implements t3lib_Singleton {
 		}
 		return $status;
 	}
+
+	/**
+	 * is field empty?
+	 *
+	 * @param string $value
+	 * @return boolean
+	 */
+	public function isFieldEmpty($value) {
+		$status = FALSE;
+		if(trim($value) === '' || $value === NULL) {
+			$status = !$status;
+		}
+		return $status;
+	}
 }
 ?>

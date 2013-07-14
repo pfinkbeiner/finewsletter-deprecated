@@ -9,7 +9,7 @@ module.tx_finewsletter {
 	}
 	persistence {
 		# cat=module.tx_finewsletter//a; type=int+; label=Default storage PID
-		storagePid = 38
+		storagePid = 
 	}
 }
 plugin.tx_finewsletter {
@@ -26,6 +26,23 @@ plugin.tx_finewsletter {
 		storagePid = 
 	}
     settings {
+        fields {
+            name {
+                required = 1
+                error = Please enter your name.
+            }
+            firstName {
+                required = 0
+                error = Please enter your first name.
+            }
+            lastName {
+                required = 0
+                error = Please enter your last name.
+            }
+            language {
+                values = english | german | spanish
+            }
+        }
         messages {
             subscribe {
                 invalidEmail = Not a valid email address.

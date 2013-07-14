@@ -2,6 +2,10 @@
 	<f:translate key="tx_finewsletter_domain_model_recipient.email" />
 </label><br />
 	<f:form.textfield property="email" /><br />
+<label for="name">
+	<f:translate key="tx_finewsletter_domain_model_recipient.name" />
+</label><br />
+	<f:form.textfield property="name" /><br />
 <label for="firstName">
 	<f:translate key="tx_finewsletter_domain_model_recipient.firstName" />
 </label><br />
@@ -13,4 +17,4 @@
 <label for="language">
 	<f:translate key="tx_finewsletter_domain_model_recipient.language" />
 </label><br />
-	<f:form.textfield property="language" /><br />
+	<f:form.select options="{languages}" property="language" /> 

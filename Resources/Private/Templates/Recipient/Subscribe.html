@@ -20,7 +20,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <div class="finewsletter finewsletter-subscribe">
 	<f:form action="create"  name="newRecipient" object="{newRecipient}">
-	<f:render partial="Recipient/FormFields" />
+	<f:render partial="Recipient/FormFields" arguments="{languages:languages}" />
 	<f:form.submit value="{f:translate(key: 'tx_finewsletter_domain_model_recipient.subscribe')}" />
 	</f:form>
 </div>

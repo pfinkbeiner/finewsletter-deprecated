@@ -71,5 +71,45 @@ class Tx_Finewsletter_Validator_RecipientValidatorTest extends Tx_Extbase_Tests_
 			$this->fixture->isEmailValid('john@doe.com')
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function isFieldEmptyReturnsTrueIfEmpty() {
+		$this->assertSame(
+			TRUE,
+			$this->fixture->isFieldEmpty('')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isFieldEmptyReturnsTrueIfOnlySpaces() {
+		$this->assertSame(
+			TRUE,
+			$this->fixture->isFieldEmpty('  ')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isFieldEmptyReturnsFalseIfFilled() {
+		$this->assertSame(
+			FALSE,
+			$this->fixture->isFieldEmpty('Just a test.')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isFieldEmptyReturnsTrueIfNull() {
+		$this->assertSame(
+			TRUE,
+			$this->fixture->isFieldEmpty(NULL)
+		);
+	}
 }
 ?>

@@ -9,6 +9,23 @@ plugin.tx_finewsletter {
 		storagePid = {$plugin.tx_finewsletter.persistence.storagePid}
 	}
     settings {
+        fields {
+            name {
+                required = {$plugin.tx_finewsletter.settings.fields.name.required}
+                error = {$plugin.tx_finewsletter.settings.fields.name.error}
+            }
+            firstName {
+                required = {$plugin.tx_finewsletter.settings.fields.firstName.required}
+                error = {$plugin.tx_finewsletter.settings.fields.firstName.error}
+            }
+            lastName {
+                required = {$plugin.tx_finewsletter.settings.fields.lastName.required}
+                error = {$plugin.tx_finewsletter.settings.fields.lastName.error}
+            }
+            language {
+                values = {$plugin.tx_finewsletter.settings.fields.language.values}
+            }
+        }
         mail {
             test = {$plugin.tx_finewsletter.settings.mail.test}
             senderName = {$plugin.tx_finewsletter.settings.mail.senderName}

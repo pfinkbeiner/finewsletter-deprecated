@@ -58,10 +58,11 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 * @return void
 	 */
 	public function subscribeAction(Tx_Finewsletter_Domain_Model_Recipient $newRecipient = NULL) {
-		if ($newRecipient == NULL) { // workaround for fluid bug ##5636
-			$newRecipient = $this->objectManager->get('Tx_Finewsletter_Domain_Model_Recipient');
-		}
 		$this->view->assign('newRecipient', $newRecipient);
+		if($this->settings['fields']['language']['values'] !== NULL) {
+			$languages = explode('|', str_replace(' | ','|', $this->settings['fields']['language']['values']));
+			$this->view->assign('languages', array_combine($languages, $languages));
+		}
 	}
 
 	/**
@@ -108,17 +109,43 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 				$this->redirect('subscribe');
 			}
 		} else {
-			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
-			$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
+			# Validate other fields if necessary.
+			# Validate for name
+			if((int) $this->settings['fields']['name']['required'] === 1){
+				if($userValidator->isFieldEmpty($newRecipient->getName()) === TRUE) {
+					$this->throwMessage($this->settings['fields']['name']['error']);
+					$this->redirect('subscribe');
+				}
+			}
+			# Validate for firstName
+			if((int) $this->settings['fields']['firstName']['required'] === 1){
+				if($userValidator->isFieldEmpty($newRecipient->getFirstName()) === TRUE) {
+					$this->throwMessage($this->settings['fields']['firstName']['error']);
+					$this->redirect('subscribe');
+				}
+			}
+			# Validate for lastName
+			if((int) $this->settings['fields']['lastName']['required'] === 1){
+				if($userValidator->isFieldEmpty($newRecipient->getLastName()) === TRUE) {
+					$this->throwMessage($this->settings['fields']['lastName']['error']);
+					$this->redirect('subscribe');
+				}
+			}
 
+			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
+
+			# Ensure recipient is not active by default
 			$newRecipient->setActive(FALSE);
 
+			# Generate a token for user.
 			$newRecipient->setToken($securityService->generateToken());
 			$this->recipientRepository->add($newRecipient);
 
 			$persistenceManager = t3lib_div::makeInstance('Tx_Extbase_Persistence_Manager');
 			$persistenceManager->persistAll();
 
+			# Send confirmation mail
+			$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
 			$emailContent = $mailService->generateEmailContent(array(
 				'html'  => $this->settings['mail']['subscribe']['templates']['html'],
 				'plain' => $this->settings['mail']['subscribe']['templates']['plain']
@@ -260,7 +287,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 		if($pageUid === NULL) {
 			$this->redirect($action);
 		}else{
-			$this->redirect(NULL, NULL, NULL, NULL, $pageUid);
+			$this->redirect(NULL, NULL, NULL, NULL, (int) $pageUid);
 		}
 	}
 

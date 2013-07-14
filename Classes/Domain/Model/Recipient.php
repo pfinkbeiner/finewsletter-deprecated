@@ -37,7 +37,6 @@ class Tx_Finewsletter_Domain_Model_Recipient extends Tx_Extbase_DomainObject_Abs
 	 * email
 	 *
 	 * @var string
-	 * @validate NotEmpty
 	 */
 	protected $email;
 

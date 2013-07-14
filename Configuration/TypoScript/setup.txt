@@ -20,7 +20,6 @@ plugin.tx_finewsletter {
                     html = {$plugin.tx_finewsletter.settings.mail.subscribe.templates.html}
                     plain = {$plugin.tx_finewsletter.settings.mail.subscribe.templates.plain}
                 }
-                redirect = {$plugin.tx_finewsletter.settings.mail.subscribe.redirect}
             }
             unsubscribe {
                 subject = {$plugin.tx_finewsletter.settings.mail.unsubscribe.subject}
@@ -28,22 +27,25 @@ plugin.tx_finewsletter {
                     html = {$plugin.tx_finewsletter.settings.mail.unsubscribe.templates.html}
                     plain = {$plugin.tx_finewsletter.settings.mail.unsubscribe.templates.plain}
                 }
-                redirect = {$plugin.tx_finewsletter.settings.mail.unsubscribe.redirect}
             }
+        }
+        redirect {
+            subscribe = {$plugin.tx_finewsletter.settings.redirect.subscribe}
+            unsubscribe = {$plugin.tx_finewsletter.settings.redirect.unsubscribe}
         }
         messages {
             subscribe {
-                invalidEmail = {$plugin.tx_finewsletter.settings.error.subscribe.invalidEmail}
-                emailExistsNotActive = {$plugin.tx_finewsletter.settings.error.subscribe.emailExistsNotActive}
-                emailExists = {$plugin.tx_finewsletter.settings.error.subscribe.emailExists}
-                confirmationSent = {$plugin.tx_finewsletter.settings.error.subscribe.confirmationSent}
-                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.error.subscribe.invalidConfirmationLink}
+                invalidEmail = {$plugin.tx_finewsletter.settings.messages.subscribe.invalidEmail}
+                emailExistsNotActive = {$plugin.tx_finewsletter.settings.messages.subscribe.emailExistsNotActive}
+                emailExists = {$plugin.tx_finewsletter.settings.messages.subscribe.emailExists}
+                confirmationSent = {$plugin.tx_finewsletter.settings.messages.subscribe.confirmationSent}
+                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.messages.subscribe.invalidConfirmationLink}
             }
             unsubscribe {
-                invalidEmail = {$plugin.tx_finewsletter.settings.error.unsubscribe.invalidEmail}
-                unknownEmail = {$plugin.tx_finewsletter.settings.error.unsubscribe.unknownEmail}
-                confirmationSent = {$plugin.tx_finewsletter.settings.error.unsubscribe.confirmationSent}
-                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.error.unsubscribe.invalidConfirmationLink}
+                invalidEmail = {$plugin.tx_finewsletter.settings.messages.unsubscribe.invalidEmail}
+                unknownEmail = {$plugin.tx_finewsletter.settings.messages.unsubscribe.unknownEmail}
+                confirmationSent = {$plugin.tx_finewsletter.settings.messages.unsubscribe.confirmationSent}
+                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.messages.unsubscribe.invalidConfirmationLink}
             }
         }
     }

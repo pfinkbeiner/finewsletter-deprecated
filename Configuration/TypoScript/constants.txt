@@ -41,6 +41,10 @@ plugin.tx_finewsletter {
                 invalidConfirmationLink = Your unsubscribe link seems invalid.
             }
         }
+        redirect {
+            subscribe = 39
+            unsubscribe = 40
+        }
         mail {
             test = true
             senderName = Newsletter System
@@ -52,8 +56,6 @@ plugin.tx_finewsletter {
                     html = EXT:finewsletter/Resources/Private/Templates/Mail/Subscribe.html
                     plain = EXT:finewsletter/Resources/Private/Templates/Mail/Subscribe.txt
                 }
-                # Jump to pageUID, if empty redirect to subscribed Action
-                redirect = 39
             }
             unsubscribe {
                 subject = Unsubscribe from our newsletter complete.
@@ -61,8 +63,6 @@ plugin.tx_finewsletter {
                     html = EXT:finewsletter/Resources/Private/Templates/Mail/Unsubscribe.html
                     plain = EXT:finewsletter/Resources/Private/Templates/Mail/Unsubscribe.txt
                 }
-                # Jump to pageUID, if empty redirect to unsubscribed Action
-                redirect = 40
             }
         } 
     }

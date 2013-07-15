@@ -182,7 +182,10 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 * @param string hash
 	 * @return void
 	 */
-	public function verifyAction($recipient, $hash) {
+	public function verifyAction($recipient = NULL, $hash) {
+		if($recipient === NULL) {
+			$redirectHandler($this->settings['redirect']['verifyFailed'], 'verifyFailed');
+		}
 		$verified = FALSE;
 		$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
 		if($securityService->isSecurityHashValid($recipient, $hash) === TRUE) {
@@ -202,6 +205,15 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	 * @return void
 	 */
 	public function verifiedAction() {
+	}
+
+	/**
+	 * action verifyFailed
+	 * user doens't exists
+	 *
+	 * @return void
+	 */
+	public function verifyFailedAction() {
 	}
 
 	/**

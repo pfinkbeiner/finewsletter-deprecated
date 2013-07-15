@@ -7,7 +7,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'Registration',
 	array(
-		'Recipient' => 'subscribe, create, subscribed, verify, unsubscribe, unsubscribed, remove',
+		'Recipient' => 'subscribe, create, subscribed, verify, verified, verifyFailed, unsubscribe, unsubscribed, remove',
 	),
 	// non-cacheable actions
 	array(

@@ -20,7 +20,7 @@
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">Subscription</numIndex>
-										<numIndex index="1">Recipient->subscribe; Recipient->create; Recipient->subscribed; Recipient->verify; Recipient->update</numIndex>
+										<numIndex index="1">Recipient->subscribe; Recipient->create; Recipient->subscribed; Recipient->verify; Recipient->verified; Recipient->verifyFailed; Recipient->update</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">Unsubscribe</numIndex>

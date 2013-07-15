@@ -178,13 +178,14 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	/**
 	 * action verify
 	 *
-	 * @param Tx_Finewsletter_Domain_Model_Recipient $recipient
+	 * @param integer $recipient
+	 * @dontvalidate $recipient
 	 * @param string hash
 	 * @return void
 	 */
-	public function verifyAction($recipient = NULL, $hash) {
+	public function verifyAction(Tx_Finewsletter_Domain_Model_Recipient $recipient = NULL, $hash) {
 		if($recipient === NULL) {
-			$redirectHandler($this->settings['redirect']['verifyFailed'], 'verifyFailed');
+			$this->redirectHandler($this->settings['redirect']['verifyFailed'], 'verifyFailed');
 		}
 		$verified = FALSE;
 		$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');

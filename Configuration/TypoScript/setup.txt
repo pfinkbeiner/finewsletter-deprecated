@@ -49,6 +49,7 @@ plugin.tx_finewsletter {
             unsubscribe =
             afterSubscribe =
             afterUnsubscribe =
+            verifiedFailed =
         }
         mail {
             test = true

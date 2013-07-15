@@ -189,9 +189,19 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			$recipient->setActive(TRUE);
 			$this->recipientRepository->update($recipient);
 			$verified = TRUE;
+			$this->redirectHandler($this->settings['redirect']['afterSubscribe'], 'verified');
 		}
 		$this->view->assign('verified', $verified);
 		$this->view->assign('verifiedEmail', $recipient->getEmail());
+	}
+
+	/**
+	 * action verfied
+	 * after successful confirmation
+	 *
+	 * @return void
+	 */
+	public function verifiedAction() {
 	}
 
 	/**
@@ -229,36 +239,45 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 				$this->throwMessage($this->settings['messages']['unsubscribe']['unknownEmail']);
 				$this->redirect('unsubscribe');
 			} else {
-				$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
-				$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
-				$recipient = $this->recipientRepository->findOneByEmail($email);
+				// Double optOut?
+				if((int) $this->settings['global']['double-opt-out'] === 1) {
+					$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
+					$mailService = $this->objectManager->get('Tx_Finewsletter_Service_MailService');
+					$recipient = $this->recipientRepository->findOneByEmail($email);
 
-				$emailContent = $mailService->generateEmailContent(array(
-					'html'  => $this->settings['mail']['unsubscribe']['templates']['html'],
-					'plain' => $this->settings['mail']['unsubscribe']['templates']['plain']
-				), array(
-					'unsubscribeLink' => $securityService->generateUnsubscribeLink($recipient, $this->uriBuilder) 
-				), TRUE, TRUE);
+					$emailContent = $mailService->generateEmailContent(array(
+						'html'  => $this->settings['mail']['unsubscribe']['templates']['html'],
+						'plain' => $this->settings['mail']['unsubscribe']['templates']['plain']
+					), array(
+						'unsubscribeLink' => $securityService->generateUnsubscribeLink($recipient, $this->uriBuilder) 
+					), TRUE, TRUE);
 
-				$mailService->sendMail(
-					$this->objectManager->get('t3lib_mail_Message'),
-					$email,
-					$this->settings['mail']['unsubscribe']['subject'],
-					$emailContent['html'],
-					$emailContent['plain'],
-					$this->settings['mail']
-				);
-				$this->throwMessage($this->settings['messages']['unsubscribe']['confirmationSent']);
-				$this->redirect('unsubscribe');
+					$mailService->sendMail(
+						$this->objectManager->get('t3lib_mail_Message'),
+						$email,
+						$this->settings['mail']['unsubscribe']['subject'],
+						$emailContent['html'],
+						$emailContent['plain'],
+						$this->settings['mail']
+					);
+					$this->throwMessage($this->settings['messages']['unsubscribe']['confirmationSent']);
+					$this->redirect('unsubscribe');
+				} else {
+					// Immediate unsubscribe without double opt-out
+					$recipient = $this->recipientRepository->findOneByEmail($email);
+					$recipient->setActive(FALSE);
+					$this->recipientRepository->update($recipient);
+					$this->redirectHandler($this->settings['redirect']['afterUnsubscribe'], 'unsubscribed');
+				}
 			}
 		} else {
+			// Immediate unsubscribe by link
 			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
-			// Immediate unsubscribe
 			$recipient = $this->recipientRepository->findOneByEmail($email);
 			if($securityService->isUnsubscribeLinkValid($recipient, $auth) === TRUE) {
 				$recipient->setActive(FALSE);
 				$this->recipientRepository->update($recipient);
-				$this->redirectHandler($this->settings['redirect']['unsubscribe'], 'unsubscribed');
+				$this->redirectHandler($this->settings['redirect']['afterUnsubscribe'], 'unsubscribed');
 			} else {
 				$this->throwMessage($this->settings['messages']['unsubscribe']['invalidConfirmationLink']);
 				$this->redirect('unsubscribe');

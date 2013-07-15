@@ -9,62 +9,67 @@ plugin.tx_finewsletter {
 		storagePid = {$plugin.tx_finewsletter.persistence.storagePid}
 	}
     settings {
+        global {
+            double-opt-out = 1
+        }
         fields {
             name {
-                required = {$plugin.tx_finewsletter.settings.fields.name.required}
-                error = {$plugin.tx_finewsletter.settings.fields.name.error}
+                required = 1
+                error = Please enter your name.
             }
             firstName {
-                required = {$plugin.tx_finewsletter.settings.fields.firstName.required}
-                error = {$plugin.tx_finewsletter.settings.fields.firstName.error}
+                required = 0
+                error = Please enter your first name.
             }
             lastName {
-                required = {$plugin.tx_finewsletter.settings.fields.lastName.required}
-                error = {$plugin.tx_finewsletter.settings.fields.lastName.error}
+                required = 0
+                error = Please enter your last name.
             }
             language {
-                values = {$plugin.tx_finewsletter.settings.fields.language.values}
+                values = english | german | spanish
             }
-        }
-        mail {
-            test = {$plugin.tx_finewsletter.settings.mail.test}
-            senderName = {$plugin.tx_finewsletter.settings.mail.senderName}
-            senderEmail = {$plugin.tx_finewsletter.settings.mail.senderEmail}
-
-            subscribe {
-                subject = {$plugin.tx_finewsletter.settings.mail.subscribe.subject}
-                templates {
-                    html = {$plugin.tx_finewsletter.settings.mail.subscribe.templates.html}
-                    plain = {$plugin.tx_finewsletter.settings.mail.subscribe.templates.plain}
-                }
-            }
-            unsubscribe {
-                subject = {$plugin.tx_finewsletter.settings.mail.unsubscribe.subject}
-                templates {
-                    html = {$plugin.tx_finewsletter.settings.mail.unsubscribe.templates.html}
-                    plain = {$plugin.tx_finewsletter.settings.mail.unsubscribe.templates.plain}
-                }
-            }
-        }
-        redirect {
-            subscribe = {$plugin.tx_finewsletter.settings.redirect.subscribe}
-            unsubscribe = {$plugin.tx_finewsletter.settings.redirect.unsubscribe}
         }
         messages {
             subscribe {
-                invalidEmail = {$plugin.tx_finewsletter.settings.messages.subscribe.invalidEmail}
-                emailExistsNotActive = {$plugin.tx_finewsletter.settings.messages.subscribe.emailExistsNotActive}
-                emailExists = {$plugin.tx_finewsletter.settings.messages.subscribe.emailExists}
-                confirmationSent = {$plugin.tx_finewsletter.settings.messages.subscribe.confirmationSent}
-                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.messages.subscribe.invalidConfirmationLink}
+                invalidEmail = Not a valid email address.
+                emailExistsNotActive = Email already exists, but is not active, yet. Another confirmation email has been sent.
+                emailExists = Email already exists.
+                confirmationSent = A confirmation email has been sent.
+                invalidConfirmationLink = Your subscribe link seems invalid.
             }
             unsubscribe {
-                invalidEmail = {$plugin.tx_finewsletter.settings.messages.unsubscribe.invalidEmail}
-                unknownEmail = {$plugin.tx_finewsletter.settings.messages.unsubscribe.unknownEmail}
-                confirmationSent = {$plugin.tx_finewsletter.settings.messages.unsubscribe.confirmationSent}
-                invalidConfirmationLink = {$plugin.tx_finewsletter.settings.messages.unsubscribe.invalidConfirmationLink}
+                invalidEmail = Not a valid email address.
+                unknownEmail = Email address does not exist.
+                confirmationSent = An unsubscribe confirmation email has been sent.
+                invalidConfirmationLink = Your unsubscribe link seems invalid.
             }
         }
+        redirect {
+            subscribe =
+            unsubscribe =
+            afterSubscribe =
+            afterUnsubscribe =
+        }
+        mail {
+            test = true
+            senderName = Newsletter System
+            senderEmail = newsletter@example.com
+
+            subscribe {
+                subject = Please confirm your subscription to our newsletter.
+                templates { 
+                    html = EXT:finewsletter/Resources/Private/Templates/Mail/Subscribe.html
+                    plain = EXT:finewsletter/Resources/Private/Templates/Mail/Subscribe.txt
+                }
+            }
+            unsubscribe {
+                subject = Unsubscribe from our newsletter complete.
+                templates {
+                    html = EXT:finewsletter/Resources/Private/Templates/Mail/Unsubscribe.html
+                    plain = EXT:finewsletter/Resources/Private/Templates/Mail/Unsubscribe.txt
+                }
+            }
+        } 
     }
 }
 # Backend Module configuration

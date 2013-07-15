@@ -266,7 +266,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 					// Immediate unsubscribe without double opt-out
 					$recipient = $this->recipientRepository->findOneByEmail($email);
 					$recipient->setActive(FALSE);
-					$this->recipientRepository->update($recipient);
+					$this->recipientRepository->remove($recipient);
 					$this->redirectHandler($this->settings['redirect']['afterUnsubscribe'], 'unsubscribed');
 				}
 			}
@@ -275,8 +275,7 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 			$securityService = $this->objectManager->get('Tx_Finewsletter_Service_SecurityService');
 			$recipient = $this->recipientRepository->findOneByEmail($email);
 			if($securityService->isUnsubscribeLinkValid($recipient, $auth) === TRUE) {
-				$recipient->setActive(FALSE);
-				$this->recipientRepository->update($recipient);
+				$this->recipientRepository->remove($recipient);
 				$this->redirectHandler($this->settings['redirect']['afterUnsubscribe'], 'unsubscribed');
 			} else {
 				$this->throwMessage($this->settings['messages']['unsubscribe']['invalidConfirmationLink']);

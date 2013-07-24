@@ -32,7 +32,7 @@ global {
 ```
 
 #### Fields
-You decide which forms you want to display and to validate. Below you can see the typoscript block between `plugin.tx_finewsletter.settings`. Language will be displayed as a selectbox. Enter multiple values with a `|` as delimiter.
+You decide which forms you want to display and to validate. Below you can see the typoscript block between `plugin.tx_finewsletter.settings`. Language will be displayed as a selectbox. Enter multiple values with a `|` as delimiter. You should also declare a specific key infront of the label field, like en:english. In this case en will be stored in database and english will be displayed in selectbox. The advantage is, you can translate the labels in frontend without loosing consistency in your database.
 
 ```
 fields {
@@ -49,7 +49,7 @@ fields {
           error = Please enter your last name.
       }
       language {
-          values = english | german | spanish
+          values = en:english | de:german | es:spanish
       }
 }
 
@@ -125,6 +125,10 @@ mail {
 
 
 ### Changes due to versions
+v1.1.1 - beta
+
+* Optimize translation handling for language field.
+
 v1.1.0 - beta
 
 * Added new verfiedAction template

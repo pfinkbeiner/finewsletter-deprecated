@@ -1,4 +1,4 @@
-# ![finewsletter icon](ext_icon.gif) Finewsletter v1.1.0 - beta
+# ![finewsletter icon](ext_icon.gif) Finewsletter v1.1.1 - beta
 ## A really easy to use newsletter management extension for TYPO3 written in extbase & fluid.
 
 

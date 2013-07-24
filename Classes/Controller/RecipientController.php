@@ -60,8 +60,8 @@ class Tx_Finewsletter_Controller_RecipientController extends Tx_Extbase_MVC_Cont
 	public function subscribeAction(Tx_Finewsletter_Domain_Model_Recipient $newRecipient = NULL) {
 		$this->view->assign('newRecipient', $newRecipient);
 		if($this->settings['fields']['language']['values'] !== NULL) {
-			$languages = explode('|', str_replace(' | ','|', $this->settings['fields']['language']['values']));
-			$this->view->assign('languages', array_combine($languages, $languages));
+			$configurationService = $this->objectManager->get('Tx_Finewsletter_Service_ConfigurationService');
+			$this->view->assign('languages', $configurationService->buildLanguageArray($this->settings['fields']['language']['values']));
 		}
 	}
 

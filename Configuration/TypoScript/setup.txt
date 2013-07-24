@@ -26,7 +26,7 @@ plugin.tx_finewsletter {
                 error = Please enter your last name.
             }
             language {
-                values = english | german | spanish
+                values = en:english | de:german | es:spanish
             }
         }
         messages {

@@ -1,4 +1,4 @@
-# ![finewsletter icon](ext_icon.gif) Finewsletter v1.1.1 - beta
+# ![finewsletter icon](ext_icon.gif) Finewsletter v1.2.0
 ## A really easy to use newsletter management extension for TYPO3 written in extbase & fluid.
 
 
@@ -20,6 +20,26 @@ Note: This extension is still under development, but the basics work well. That'
 
 ### Customize
 I tried to create the extension as much flexible as i can. For this reason, you have a big typoscript object where you can modify things like error messages, validators and more. So multilanugage is no problem and you dont have to touch the locallang files.
+
+#### Translation handling
+In many extensions you have to modify the locallang.xml directly in the extension directory what is pretty ugly. Everytime you update the extension your locallang files will be overwritten. Now, i've added an own ViewHelper which allows you to use your own Locallang.xml located wherever you want. To use it you have to set `languageRootPath` in your typoscript. To enable your own locallang file you just have to add `{namespace fi=Tx_Finewsletter_ViewHelpers}` on top of each file which contains tranlation viewhelpers. Furthermore you have to use `<fi:translate key="translation.key" />`.
+
+```
+plugin.tx_finewsletter {
+    view {
+        templateRootPath = path/to/your/templates/
+        partialsRootPath = path/to/your/partials/
+        layoutRootPath = path/to/your/layouts/
+        languageRootPath = path/to/your/languagefile/
+    }
+    persistance {
+        […]
+    }
+    settings {
+        […]
+    }
+}
+```
 
 #### Global settings
 Currently you can only turn on/off the double opt-out option for
@@ -125,6 +145,11 @@ mail {
 
 
 ### Changes due to versions
+v1.2.0
+
+* Adds new feature for translation handling.
+
+
 v1.1.1 - beta
 
 * Optimize translation handling for language field.

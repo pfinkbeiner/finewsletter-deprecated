@@ -3,7 +3,8 @@ plugin.tx_finewsletter {
 	view {
 		templateRootPath = {$plugin.tx_finewsletter.view.templateRootPath}
 		partialRootPath = {$plugin.tx_finewsletter.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_finewsletter.view.layoutRootPath}
+        layoutRootPath = {$plugin.tx_finewsletter.view.layoutRootPath}
+        #languageRootPath = Path/To/Your/Own/LocallangFile
 	}
 	persistence {
 		storagePid = {$plugin.tx_finewsletter.persistence.storagePid}

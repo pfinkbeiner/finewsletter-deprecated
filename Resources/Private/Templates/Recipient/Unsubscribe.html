@@ -20,9 +20,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <div class="finewsletter finewsletter-unsubscribe">
 	<f:form action="remove"  name="recipient" object="{recipient}">
-    <label for="email"> <f:translate key="tx_finewsletter_domain_model_recipient.email" /> </label>
+    <label for="email"> <fi:translatelate key="tx_finewsletter_domain_model_recipient.email" /> </label>
     <f:form.textfield property="email" />
-	<f:form.submit value="{f:translate(key: 'tx_finewsletter_domain_model_recipient.unsubscribe')}" />
+	<f:form.submit value="{fi:translatelate(key: 'tx_finewsletter_domain_model_recipient.unsubscribe')}" />
 	</f:form>
 </div>
 </f:section>
